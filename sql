@@ -21,7 +21,9 @@ CREATE TABLE Albums (
 CREATE TABLE Tracks (
     id_track SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    duration INT CHECK (duration > 0)
+    duration INT CHECK (duration > 0),
+    id_album INT,
+    FOREIGN KEY (id_album) REFERENCES Albums(id_album)
 );
 
 -- Создание таблицы Сборники
@@ -49,16 +51,6 @@ CREATE TABLE ArtistAlbums (
     FOREIGN KEY (id_artist) REFERENCES Artists(id_artist),
     FOREIGN KEY (id_album) REFERENCES Albums(id_album),
     UNIQUE (id_artist, id_album)
-);
-
--- Создание таблицы Связь Альбомов и Треков
-CREATE TABLE AlbumTracks (
-    id_album_track SERIAL PRIMARY KEY,
-    id_album INT,
-    id_track INT,
-    FOREIGN KEY (id_album) REFERENCES Albums(id_album),
-    FOREIGN KEY (id_track) REFERENCES Tracks(id_track),
-    UNIQUE (id_album, id_track)
 );
 
 -- Создание таблицы Связь Сборников и Треков
